@@ -48,6 +48,9 @@
     <button id="goToFlowers" class="letter-button"> Ver tus flores ->🌻</button>
   </div>
 
+  <!-- Flores amarillas lluvia -->
+  <div id="flower-rain"></div>
+
   <!-- 🎵 Audio oculto -->
   <audio id="bg-music" loop>
     <source src="flormusica.mp3" type="audio/mpeg">
@@ -55,30 +58,59 @@
   </audio>
 
   <script>
-    const envelope = document.querySelector(".envelope");
     const music = document.getElementById("bg-music");
+    let musicStarted = false;
 
-    // Abrir/cerrar carta + reproducir música en el primer click
+    // Reproducir música al primer click en cualquier parte
+    document.addEventListener("click", () => {
+      if (!musicStarted) {
+        music.play().catch(() => {});
+        musicStarted = true;
+      }
+    });
+
+    // Lluvia de flores amarillas
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.className = "flower-drop";
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.getElementById("flower-rain").appendChild(flower);
+      setTimeout(() => flower.remove(), 5000);
+    }
+    setInterval(createFlower, 300);
+
+    // Abrir/cerrar carta
+    const envelope = document.querySelector(".envelope");
     envelope.addEventListener("click", () => {
       envelope.classList.toggle("open");
-
-      if (music.paused) {
-        music.play().catch(err => {
-          console.log("El navegador bloqueó el autoplay hasta interacción:", err);
-        });
-      }
     });
 
     // Redirigir al index1 al tocar el botón
     document.getElementById("goToFlowers").addEventListener("click", () => {
-      // Guardar estado de música en localStorage
-      if (!music.paused) {
-        localStorage.setItem("musicPlaying", "true");
-      } else {
-        localStorage.setItem("musicPlaying", "false");
-      }
       window.location.href = "index1.html";
     });
   </script>
+  <style>
+    #flower-rain {
+      position: fixed;
+      pointer-events: none;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 9999;
+    }
+    .flower-drop {
+      position: absolute;
+      top: -40px;
+      width: 32px; height: 32px;
+      background-image: url('https://img.icons8.com/color/48/000000/sunflower.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+      animation: flowerfall linear;
+    }
+    @keyframes flowerfall {
+      to { transform: translateY(100vh); opacity: 0.5; }
+    }
+  </style>
 </body>
 </html>
