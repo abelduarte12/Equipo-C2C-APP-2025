@@ -33,7 +33,7 @@
             <img src="https://img.freepik.com/vector-premium/pulgar-dedos-imprimir-marca-huella-dactilar-amor-corazon_53500-1839.jpg" 
                  alt="love1" class="custom-image">
 
-            <p>Para mi Princesa Favorita 👑❤️ <span class="highlight">¡Te Amo!</span></p>
+            <p>Para las mejores chicas del C2C👑❤️ <span class="highlight">¡Las Quierooo..!!!!</span></p>
 
             <img src="mochixd.png" alt="love2" class="custom-image2">
           </div>
@@ -71,6 +71,12 @@
 
     // Redirigir al index1 al tocar el botón
     document.getElementById("goToFlowers").addEventListener("click", () => {
+      // Guardar estado de música en localStorage
+      if (!music.paused) {
+        localStorage.setItem("musicPlaying", "true");
+      } else {
+        localStorage.setItem("musicPlaying", "false");
+      }
       window.location.href = "index1.html";
     });
   </script>
