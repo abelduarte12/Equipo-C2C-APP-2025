@@ -88,6 +88,7 @@
 
     // Redirigir al index1 al tocar el botón
     document.getElementById("goToFlowers").addEventListener("click", () => {
+      localStorage.setItem("musicPlaying", musicStarted ? "true" : "false"); // Guarda el estado
       window.location.href = "index1.html";
     });
   </script>
@@ -112,7 +113,7 @@
       to { transform: translateY(100vh); opacity: 0.5; }
     }
     .address p {
-      font-size: 2.4em;
+      font-size: 2.2 em;
       font-weight: bold;
       margin: 0.3em 0;
     }
